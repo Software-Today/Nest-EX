@@ -1,19 +1,23 @@
 import { Injectable } from '@nestjs/common';
-import { CreateCatDto } from './dto/create-cat.dto';
+import { Cat } from './interfaces/cat.interface';
 import { UpdateCatDto } from './dto/update-cat.dto';
 
 @Injectable()
 export class CatsService {
-  create(createCatDto: CreateCatDto) {
-    return 'This action adds a new cat';
+
+  private readonly cats: Cat[] = [];
+
+  create(cat: Cat) {
+    this.cats.push(cat);
+    return cat;
   }
 
   findAll() {
-    return `This action returns all cats`;
+    return this.cats;
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} cat`;
+    return this.cats[id];
   }
 
   update(id: number, updateCatDto: UpdateCatDto) {
